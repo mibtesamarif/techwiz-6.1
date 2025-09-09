@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "Aarav Patel",
+    "title": "Software Engineer at Google",
+    "domain": "Technology",
+    "image": "/assets/aarav.jpg",
+    "snippet": "From small town to Silicon Valley...",
+    "fullStory": "Aarav grew up in a small town and pursued Computer Science...",
+    "linkedin": "https://linkedin.com/in/aaravpatel"
+  },
+  {
+    "id": 2,
+    "name": "Meera Sharma",
+    "title": "UX Designer at Adobe",
+    "domain": "Design",
+    "image": "/assets/meera.jpg",
+    "snippet": "Design was always her passion...",
+    "fullStory": "Meera studied visual design and worked on freelance projects...",
+    "linkedin": "https://linkedin.com/in/meerasharma"
+  }
+]

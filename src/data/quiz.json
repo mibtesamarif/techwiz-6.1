@@ -1,0 +1,44 @@
+[
+  {
+    "id": "q1",
+    "text": "Which activity excites you the most?",
+    "options": [
+      {
+        "value": "coding",
+        "label": "Building apps or websites",
+        "recommendations": ["Software Engineer", "Web Developer"]
+      },
+      {
+        "value": "healing",
+        "label": "Helping people recover from illness",
+        "recommendations": ["Doctor", "Nurse"]
+      },
+      {
+        "value": "business",
+        "label": "Managing people or projects",
+        "recommendations": ["Manager", "Entrepreneur"]
+      }
+    ]
+  },
+  {
+    "id": "q2",
+    "text": "What type of environment do you enjoy?",
+    "options": [
+      {
+        "value": "lab",
+        "label": "Working with experiments and research",
+        "recommendations": ["Scientist", "Biotech Specialist"]
+      },
+      {
+        "value": "creative",
+        "label": "Designing, writing, or creating visuals",
+        "recommendations": ["Graphic Designer", "Content Creator"]
+      },
+      {
+        "value": "tech",
+        "label": "Exploring new technologies",
+        "recommendations": ["AI Engineer", "Data Scientist"]
+      }
+    ]
+  }
+]

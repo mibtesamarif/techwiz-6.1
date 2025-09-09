@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "title": "Software Engineer",
+    "description": "Designs and develops software applications.",
+    "industry": "technology",
+    "skills": ["JavaScript", "Problem Solving", "Teamwork"],
+    "education": "Bachelor's in Computer Science",
+    "salaryMin": 40000,
+    "salaryMax": 120000,
+    "image": "/assets/software.jpg"
+  },
+  {
+    "id": 2,
+    "title": "Nurse",
+    "description": "Provides healthcare support to patients.",
+    "industry": "healthcare",
+    "skills": ["Compassion", "Medical Knowledge", "Patience"],
+    "education": "Nursing Degree",
+    "salaryMin": 30000,
+    "salaryMax": 70000,
+    "image": "/assets/nurse.jpg"
+  }
+]

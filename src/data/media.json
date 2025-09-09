@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "title": "Introduction to AI",
+    "category": "Tutorial",
+    "link": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "description": "A beginner-friendly overview of Artificial Intelligence.",
+    "transcript": "In this video, we explore the basics of AI..."
+  },
+  {
+    "id": 2,
+    "title": "Career Guidance Webinar",
+    "category": "Webinar",
+    "link": "https://www.youtube.com/embed/oHg5SJYRHA0",
+    "description": "Experts share insights on choosing the right career path."
+  }
+]

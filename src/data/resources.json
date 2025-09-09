@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "title": "Resume Writing Guide",
+    "type": "Article",
+    "description": "Learn how to create a professional resume that gets noticed.",
+    "link": "/resources/resume-guide.pdf"
+  },
+  {
+    "id": 2,
+    "title": "Career Planning eBook",
+    "type": "eBook",
+    "description": "A comprehensive eBook on planning your career path.",
+    "link": "/resources/career-planning.pdf"
+  },
+  {
+    "id": 3,
+    "title": "Interview Checklist",
+    "type": "Checklist",
+    "description": "Step-by-step checklist to prepare for your next interview.",
+    "link": "/resources/interview-checklist.pdf"
+  },
+  {
+    "id": 4,
+    "title": "Career Growth Webinar",
+    "type": "Webinar",
+    "description": "Watch our expert panel discuss strategies for long-term career growth.",
+    "link": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+  }
+]
