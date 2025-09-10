@@ -1,21 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
-
-// Helper function to get bookmarks from localStorage
-const getBookmarks = () => {
-  try {
-    const bookmarks = localStorage.getItem("bookmarks");
-    return bookmarks ? JSON.parse(bookmarks) : [];
-  } catch (error) {
-    console.error("Failed to parse bookmarks from localStorage", error);
-    return [];
-  }
-};
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { getBookmarks } from "../utils/storage";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [username, setUsername] = useState("");
   const [bookmarkCount, setBookmarkCount] = useState(0);
+
+  // Get the navigation function from react-router-dom
+  const navigate = useNavigate();
 
   useEffect(() => {
     const updateBookmarks = () => {
@@ -29,11 +22,29 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    const storedName = sessionStorage.getItem("username");
+    // Retrieve username from localStorage to be consistent
+    const storedName = localStorage.getItem("username");
     if (storedName) {
       setUsername(storedName);
     }
   }, []);
+
+  // Handle logout and redirection
+  const handleBack = () => {
+    // Clear all user data from localStorage
+    localStorage.removeItem("username");
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userContact");
+    localStorage.removeItem("userType");
+    localStorage.removeItem("bookmarks");
+    
+    
+    // Navigate back to the landing page
+    navigate("/");
+
+    // Reload the page to reset the app state and show the landing page
+    window.location.reload(); 
+  };
 
   const linkClasses = "block px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200";
   const activeClasses = "text-white bg-blue-700";
@@ -107,18 +118,19 @@ const Navbar = () => {
           </NavLink>
         </div>
 
-        {/* Right side - Username + Auth */}
+        {/* Right side - User info + Back button */}
         <div className="hidden md:flex items-center space-x-4">
           {username && (
             <span className="text-sm font-semibold text-white px-3 py-1 rounded-full bg-blue-700">
               Welcome, {username} 👋
             </span>
           )}
-          <button className="px-4 py-2 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100 hover:scale-105 transform transition text-sm shadow-md">
-            Login
-          </button>
-          <button className="px-4 py-2 bg-yellow-400 text-black rounded-lg font-semibold hover:bg-yellow-500 hover:scale-105 transform transition text-sm shadow-md">
-            Signup
+          {/* Back button */}
+          <button
+            onClick={handleBack}
+            className="px-4 py-2 bg-yellow-400 text-black rounded-lg font-semibold hover:bg-yellow-500 hover:scale-105 transform transition text-sm shadow-md"
+          >
+            Back
           </button>
         </div>
 
@@ -159,7 +171,7 @@ const Navbar = () => {
           <NavLink to="/admission" className={({ isActive }) => `${linkClasses} ${isActive ? activeClasses : inactiveClasses}`} onClick={() => setIsOpen(false)}>
             Admission
           </NavLink>
-           <NavLink to="/coaching" className={({ isActive }) => `${linkClasses} ${isActive ? activeClasses : inactiveClasses}`} onClick={() => setIsOpen(false)}>
+          <NavLink to="/coaching" className={({ isActive }) => `${linkClasses} ${isActive ? activeClasses : inactiveClasses}`} onClick={() => setIsOpen(false)}>
             Coaching
           </NavLink>
           <NavLink to="/bookmarks" className={({ isActive }) => `${linkClasses} ${isActive ? activeClasses : inactiveClasses} flex items-center gap-1`} onClick={() => setIsOpen(false)}>
@@ -170,23 +182,26 @@ const Navbar = () => {
               </span>
             )}
           </NavLink>
-           <NavLink to="/about" className={({ isActive }) => `${linkClasses} ${isActive ? activeClasses : inactiveClasses}`} onClick={() => setIsOpen(false)}>
+          <NavLink to="/about" className={({ isActive }) => `${linkClasses} ${isActive ? activeClasses : inactiveClasses}`} onClick={() => setIsOpen(false)}>
             About Us
           </NavLink>
-           <NavLink to="/feedback" className={({ isActive }) => `${linkClasses} ${isActive ? activeClasses : inactiveClasses}`} onClick={() => setIsOpen(false)}>
+          <NavLink to="/feedback" className={({ isActive }) => `${linkClasses} ${isActive ? activeClasses : inactiveClasses}`} onClick={() => setIsOpen(false)}>
             Feedback
           </NavLink>
-           <NavLink to="/contact" className={({ isActive }) => `${linkClasses} ${isActive ? activeClasses : inactiveClasses}`} onClick={() => setIsOpen(false)}>
+          <NavLink to="/contact" className={({ isActive }) => `${linkClasses} ${isActive ? activeClasses : inactiveClasses}`} onClick={() => setIsOpen(false)}>
             Contact Us
           </NavLink>
           <div className="flex flex-col space-y-2 pt-4">
             {username && (
               <p className="text-sm font-semibold text-white">Welcome, {username} 👋</p>
             )}
-            <div className="flex space-x-2">
-              <button className="flex-1 px-4 py-2 bg-white text-blue-600 rounded-lg font-semibold text-sm shadow-md">Login</button>
-              <button className="flex-1 px-4 py-2 bg-yellow-400 text-black rounded-lg font-semibold text-sm shadow-md">Signup</button>
-            </div>
+            {/* Back button */}
+            <button 
+              onClick={handleBack}
+              className="px-4 py-2 bg-yellow-400 text-black rounded-lg font-semibold text-sm shadow-md"
+            >
+              Back
+            </button>
           </div>
         </div>
       )}

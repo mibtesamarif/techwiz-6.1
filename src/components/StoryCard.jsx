@@ -1,51 +1,30 @@
-// src/components/StoryCard.jsx
-import { addBookmark } from "../utils/storage";
+import { motion } from "framer-motion";
 
 const StoryCard = ({ story, onClick }) => {
-  const handleBookmark = (e) => {
-    e.stopPropagation();
-    addBookmark({
-      id: `story-${story.id}`,
-      title: story.name,
-      type: "Success Story",
-      note: ""
-    });
-    alert("Bookmarked!");
-  };
-
   return (
-    <div
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
       onClick={onClick}
-      className="bg-white shadow-md rounded-xl p-4 hover:shadow-lg transition cursor-pointer flex flex-col"
+      className="bg-white/5 backdrop-blur-lg rounded-3xl p-6 ring-1 ring-white/10 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer flex flex-col"
     >
       <img
-        src={story.image || "/vite.svg"}
+        src={story.image}
         alt={story.name}
-        className="w-full h-40 object-cover rounded-lg mb-4"
+        className="w-full h-40 object-cover rounded-xl mb-4"
       />
-
-      <h2 className="text-lg font-semibold">{story.name}</h2>
-      <p className="text-sm text-gray-500">{story.title}</p>
-
-      {/* Quote-style snippet */}
-      <blockquote className="mt-2 text-gray-700 italic border-l-4 border-blue-500 pl-3">
-        “{story.snippet}”
-      </blockquote>
-
-      {/* Domain badge */}
-      <span className="inline-block mt-3 text-xs bg-green-100 text-green-700 px-2 py-1 rounded">
+      <span className={`inline-block px-4 py-1 text-xs font-semibold rounded-full mb-2 bg-purple-500 text-white`}>
         {story.domain}
       </span>
-
-      {/* Bookmark */}
-      <button
-        onClick={handleBookmark}
-        className="mt-3 bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm"
-      >
-        Bookmark
-      </button>
-    </div>
+      <h2 className="text-xl font-bold text-white mb-1">{story.name}</h2>
+      <p className="text-sm text-gray-400 mb-2">{story.title}</p>
+      <blockquote className="mt-2 text-gray-300 italic border-l-4 border-purple-500 pl-3 leading-relaxed flex-grow">
+        “{story.snippet}”
+      </blockquote>
+    </motion.div>
   );
 };
-
 export default StoryCard;

@@ -1,189 +1,10 @@
-// // src/pages/Quiz.jsx
-// import { useState } from "react";
-// import quizData from "../data/quiz.json";
-// import QuizQuestion from "../components/QuizQuestion";
-// import Breadcrumbs from "../components/Breadcrumbs";
-
-// const Quiz = () => {
-//   const [currentQ, setCurrentQ] = useState(0);
-//   const [answers, setAnswers] = useState([]);
-//   const [result, setResult] = useState(null);
-
-//   const handleAnswer = (answerValue) => {
-//     setAnswers([...answers, answerValue]);
-//     if (currentQ < quizData.length - 1) {
-//       setCurrentQ(currentQ + 1);
-//     } else {
-//       // Count answers
-//       const counts = {};
-//       answers.concat(answerValue).forEach((ans) => {
-//         counts[ans] = (counts[ans] || 0) + 1;
-//       });
-
-//       const topChoice = Object.keys(counts).reduce((a, b) =>
-//         counts[a] > counts[b] ? a : b
-//       );
-
-//       const confidence = Math.round(
-//         (counts[topChoice] / quizData.length) * 100
-//       );
-
-//       setResult({ career: topChoice, confidence });
-//     }
-//   };
-
-//   const resetQuiz = () => {
-//     setCurrentQ(0);
-//     setAnswers([]);
-//     setResult(null);
-//   };
-
-//   return (
-//     <div>
-//       <Breadcrumbs />
-//       <h1 className="text-3xl font-bold mb-6">Career Quiz</h1>
-
-//       {!result ? (
-//         <div className="bg-white shadow-md rounded-lg p-6">
-//           <p className="text-sm text-gray-600 mb-4">
-//             Question {currentQ + 1} of {quizData.length}
-//           </p>
-//           <QuizQuestion
-//             question={quizData[currentQ]}
-//             onAnswer={handleAnswer}
-//           />
-//         </div>
-//       ) : (
-//         <div className="bg-green-100 text-green-800 p-6 rounded-lg shadow-md text-center space-y-4">
-//           <h2 className="text-2xl font-semibold">🎉 Quiz Completed!</h2>
-//           <p>
-//             Based on your answers, a good career path for you could be:{" "}
-//             <span className="font-bold capitalize">{result.career}</span>
-//           </p>
-
-//           {/* Confidence meter */}
-//           <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
-//             <div
-//               className="bg-green-500 h-4 text-xs text-center text-white"
-//               style={{ width: `${result.confidence}%` }}
-//             >
-//               {result.confidence}%
-//             </div>
-//           </div>
-//           <p className="text-sm text-gray-700">
-//             Confidence level based on your answers
-//           </p>
-
-//           <button
-//             onClick={resetQuiz}
-//             className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-//           >
-//             Retake Quiz
-//           </button>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default Quiz;
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import quizData from "../data/quiz.json";
+import Breadcrumbs from "../components/Breadcrumbs";
+import { ChevronRight, UserRoleIcon } from "../components/icons";
+import QuizQuestion from "../components/QuizQuestion";
 
-// --- Quiz Data ---
-const quizData = [
-  {
-    "id": "q1",
-    "text": "Which activity excites you the most?",
-    "options": [
-      {
-        "value": "tech",
-        "label": "Building apps or websites"
-      },
-      {
-        "value": "healthcare",
-        "label": "Helping people recover from illness"
-      },
-      {
-        "value": "business",
-        "label": "Managing people or projects"
-      }
-    ]
-  },
-  {
-    "id": "q2",
-    "text": "What type of environment do you enjoy?",
-    "options": [
-      {
-        "value": "science",
-        "label": "Working with experiments and research"
-      },
-      {
-        "value": "creative",
-        "label": "Designing, writing, or creating visuals"
-      },
-      {
-        "value": "tech",
-        "label": "Exploring new technologies"
-      }
-    ]
-  },
-  {
-    "id": "q3",
-    "text": "What do you do in your free time?",
-    "options": [
-      {
-        "value": "creative",
-        "label": "Writing stories or drawing"
-      },
-      {
-        "value": "healthcare",
-        "label": "Volunteering for a cause"
-      },
-      {
-        "value": "business",
-        "label": "Reading about market trends or investments"
-      }
-    ]
-  },
-  {
-    "id": "q4",
-    "text": "What problem do you enjoy solving most?",
-    "options": [
-      {
-        "value": "tech",
-        "label": "A technical bug in a program"
-      },
-      {
-        "value": "science",
-        "label": "A complex scientific puzzle"
-      },
-      {
-        "value": "business",
-        "label": "A logistical or organizational challenge"
-      }
-    ]
-  },
-  {
-    "id": "q5",
-    "text": "What's most important to you in a career?",
-    "options": [
-      {
-        "value": "tech",
-        "label": "Innovation and building new things"
-      },
-      {
-        "value": "healthcare",
-        "label": "Making a direct, positive impact on others' lives"
-      },
-      {
-        "value": "business",
-        "label": "Leadership and growth opportunities"
-      }
-    ]
-  }
-];
 
 const recommendations = {
   "tech": {
@@ -208,111 +29,34 @@ const recommendations = {
   },
 };
 
-// --- Icons and UI Components ---
-const ChevronRight = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-    <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
-  </svg>
-);
+const allInterests = [...new Set(quizData.flatMap(q => q.options.map(opt => opt.value)))];
 
-const Breadcrumbs = () => {
-  const pathnames = ["career-quiz"];
 
-  const containerVariants = {
-    hidden: { opacity: 0, y: -10 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        delayChildren: 0.1,
-        staggerChildren: 0.05,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: -5 },
-    visible: { opacity: 1, y: 0 },
-  };
-
-  return (
-    <nav className="text-sm my-4">
-      <motion.ol
-        className="flex items-center space-x-2 bg-white/10 backdrop-blur-md rounded-full px-4 py-2 shadow-lg ring-1 ring-white/10"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <motion.li
-          className="text-gray-300 transition-colors duration-200 hover:text-white"
-          variants={itemVariants}
-        >
-          <a href="/">Home</a>
-        </motion.li>
-
-        {pathnames.map((value, index) => {
-          const isLast = index === pathnames.length - 1;
-          return (
-            <motion.li key={index} className="flex items-center space-x-2" variants={itemVariants}>
-              <ChevronRight />
-              {isLast ? (
-                <span className="capitalize text-white font-semibold">{value.replace(/-/g, ' ')}</span>
-              ) : (
-                <a href={`/${value}`} className="capitalize text-gray-300 transition-colors duration-200 hover:text-white">
-                  {value.replace(/-/g, ' ')}
-                </a>
-              )}
-            </motion.li>
-          );
-        })}
-      </motion.ol>
-    </nav>
-  );
-};
-
-const QuizQuestion = ({ question, onAnswer }) => {
-  return (
-    <motion.div
-      key={question.id}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.5 }}
-      className="space-y-6"
-    >
-      <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">
-        {question.text}
-      </h2>
-      <div className="space-y-4">
-        {question.options.map((opt, idx) => (
-          <motion.button
-            key={idx}
-            onClick={() => onAnswer(opt.value)}
-            className="block w-full text-left px-6 py-4 rounded-xl text-lg
-                       bg-white/10 text-gray-200 border-2 border-white/20
-                       hover:bg-purple-600 hover:text-white hover:border-purple-600
-                       transition-all duration-300 transform hover:scale-105"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            {opt.label}
-          </motion.button>
-        ))}
-      </div>
-    </motion.div>
-  );
-};
 
 const Quiz = () => {
   const [currentQ, setCurrentQ] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [result, setResult] = useState(null);
+  const [selectedInterest, setSelectedInterest] = useState("");
+  const [username, setUsername] = useState("");
+  const [userCategory, setUserCategory] = useState("Student");
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("username");
+    const storedUserCategory = localStorage.getItem("userCategory");
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+    if (storedUserCategory) {
+      setUserCategory(storedUserCategory);
+    }
+  }, []);
 
   const handleAnswer = (answerValue) => {
     const nextAnswers = [...answers, answerValue];
     setAnswers(nextAnswers);
 
-    if (currentQ < quizData.length - 1) {
+    if (currentQ < filteredQuizData.length - 1) {
       setCurrentQ(currentQ + 1);
     } else {
       const counts = {};
@@ -325,7 +69,7 @@ const Quiz = () => {
       );
 
       const confidence = Math.round(
-        (counts[topChoice] / quizData.length) * 100
+        (counts[topChoice] / filteredQuizData.length) * 100
       );
 
       setResult({ career: topChoice, confidence });
@@ -336,35 +80,69 @@ const Quiz = () => {
     setCurrentQ(0);
     setAnswers([]);
     setResult(null);
+    setSelectedInterest("");
   };
 
   const careerRecommendation = result ? recommendations[result.career] : null;
 
+  const filteredQuizData = selectedInterest
+    ? quizData.filter(q => q.options.some(opt => opt.value === selectedInterest))
+    : quizData;
+    
   return (
     <div className="bg-gradient-to-br from-gray-900 to-gray-950 min-h-screen font-sans text-gray-100 p-4 sm:p-8 flex flex-col items-center">
       <div className="max-w-3xl w-full">
-        <Breadcrumbs />
+        <div className="flex justify-center">
+          <Breadcrumbs />
+        </div>
         
         <div className="my-8">
           <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-2 tracking-tight">
-            Career Quiz
+            {username ? `${username}'s Career Quiz` : 'Career Quiz'}
           </h1>
           <p className="text-gray-400 max-w-2xl">
-            Answer these questions to discover a career path that aligns with your interests and personality.
+            {username ? `As a ${userCategory.toLowerCase()}, answer these questions to find a career path that aligns with your interests.` : 'Answer these questions to discover a career path that aligns with your interests and personality.'}
           </p>
         </div>
 
         <AnimatePresence mode="wait">
-          {!result ? (
+          {selectedInterest === "" && !result ? (
+            <motion.div
+              key="interest-select"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="bg-white/5 backdrop-blur-lg rounded-3xl p-6 sm:p-10 ring-1 ring-white/10 shadow-lg"
+            >
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">
+                Choose an interest to begin:
+              </h2>
+              <div className="relative w-full">
+                <select
+                  value={selectedInterest}
+                  onChange={(e) => setSelectedInterest(e.target.value)}
+                  className="w-full px-4 py-3 bg-white/10 border-none rounded-xl text-white focus:ring-2 focus:ring-purple-500 focus:outline-none transition-all appearance-none pr-10"
+                >
+                  <option value="" className="bg-gray-800 text-gray-200">Select an interest...</option>
+                  {allInterests.map(interest => (
+                    <option key={interest} value={interest} className="bg-gray-800 text-gray-200 capitalize">
+                      {interest}
+                    </option>
+                  ))}
+                </select>
+                <UserRoleIcon />
+              </div>
+            </motion.div>
+          ) : !result ? (
             <motion.div
               key="quiz"
               className="bg-white/5 backdrop-blur-lg rounded-3xl p-6 sm:p-10 ring-1 ring-white/10 shadow-lg"
             >
               <p className="text-sm text-gray-400 mb-6 font-medium">
-                Question {currentQ + 1} of {quizData.length}
+                Question {currentQ + 1} of {filteredQuizData.length}
               </p>
               <QuizQuestion
-                question={quizData[currentQ]}
+                question={filteredQuizData[currentQ]}
                 onAnswer={handleAnswer}
               />
             </motion.div>
@@ -418,4 +196,3 @@ const Quiz = () => {
 };
 
 export default Quiz;
-

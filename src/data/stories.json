@@ -4,9 +4,9 @@
     "name": "Aarav Patel",
     "title": "Software Engineer at Google",
     "domain": "Technology",
-    "image": "/assets/aarav.jpg",
-    "snippet": "From small town to Silicon Valley...",
-    "fullStory": "Aarav grew up in a small town and pursued Computer Science...",
+    "image": "https://placehold.co/400x400/3b82f6/ffffff?text=Aarav",
+    "snippet": "From a small town to Silicon Valley, Aarav’s journey proves that dedication and a passion for coding can overcome any obstacle.",
+    "fullStory": "Aarav grew up in a small town with a single dream: to build technology that changes lives. He spent countless hours learning to code online, building small projects, and contributing to open-source communities. His relentless dedication eventually caught the eye of a Google recruiter, leading to an interview and ultimately, a position as a Software Engineer. Today, he works on products used by millions, inspiring a new generation of aspiring developers.",
     "linkedin": "https://linkedin.com/in/aaravpatel"
   },
   {
@@ -14,9 +14,39 @@
     "name": "Meera Sharma",
     "title": "UX Designer at Adobe",
     "domain": "Design",
-    "image": "/assets/meera.jpg",
-    "snippet": "Design was always her passion...",
-    "fullStory": "Meera studied visual design and worked on freelance projects...",
+    "image": "https://placehold.co/400x400/8b5cf6/ffffff?text=Meera",
+    "snippet": "Meera's unique approach to user-centric design has earned her recognition as a leader in the field, creating intuitive and beautiful digital experiences.",
+    "fullStory": "Design was always her passion. Meera studied visual design and worked on freelance projects to build her portfolio. She specialized in creating user interfaces that were not only visually appealing but also incredibly easy to use. Her meticulous attention to detail and ability to empathize with users made her an invaluable asset to any team. Now at Adobe, she's shaping the future of creative tools, making them accessible to a global audience.",
     "linkedin": "https://linkedin.com/in/meerasharma"
+  },
+  {
+    "id": 3,
+    "name": "Sanjay Singh",
+    "title": "Data Scientist at Amazon",
+    "domain": "Technology",
+    "image": "https://placehold.co/400x400/f87171/ffffff?text=Sanjay",
+    "snippet": "Sanjay's ability to extract meaningful insights from massive datasets is transforming how companies make decisions and understand their customers.",
+    "fullStory": "Sanjay always loved numbers and patterns. After earning a Master's degree in Data Science, he began his career at a startup where he built the company's first data analytics pipeline from scratch. His groundbreaking work in predictive modeling led to a significant increase in customer engagement and revenue. He was quickly recruited by Amazon, where he now leads a team of data scientists focused on optimizing logistics and improving the customer experience.",
+    "linkedin": "https://linkedin.com/in/sanajaysingh"
+  },
+  {
+    "id": 4,
+    "name": "Ananya Reddy",
+    "title": "Marketing Manager at Spotify",
+    "domain": "Business",
+    "image": "https://placehold.co/400x400/4ade80/ffffff?text=Ananya",
+    "snippet": "Through innovative campaigns and a deep understanding of consumer behavior, Ananya has successfully launched products and driven exponential brand growth.",
+    "fullStory": "Ananya started her career as a social media intern, where she discovered her knack for connecting with audiences. She honed her skills in content strategy, digital advertising, and brand management. Her viral campaigns for small businesses led to her being noticed by larger corporations. At Spotify, she's at the forefront of music marketing, creating memorable campaigns that resonate with millions of music lovers around the world.",
+    "linkedin": "https://linkedin.com/in/ananyareddy"
+  },
+  {
+    "id": 5,
+    "name": "Rajesh Kumar",
+    "title": "Founder of EcoTech Solutions",
+    "domain": "Entrepreneurship",
+    "image": "https://placehold.co/400x400/22d3ee/ffffff?text=Rajesh",
+    "snippet": "Rajesh turned his passion for sustainability into a thriving business, developing eco-friendly products that are making a real difference for the planet.",
+    "fullStory": "Motivated by environmental concerns, Rajesh founded EcoTech Solutions from his garage with a mission to combat plastic waste. He developed a line of biodegradable packaging materials that are now used by major corporations. His company has won numerous awards for innovation and sustainability. Rajesh proves that a great idea, coupled with unwavering determination, can lead to both commercial success and positive global impact.",
+    "linkedin": "https://linkedin.com/in/rajeshkumar"
   }
 ]

@@ -1,88 +1,48 @@
-// src/components/VideoCard.jsx
 import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { PlayIcon } from "./icons";
 
 const categoryColors = {
-  Tutorial: "bg-green-100 text-green-700",
-  Seminar: "bg-purple-100 text-purple-700",
-  Webinar: "bg-blue-100 text-blue-700",
-  Workshop: "bg-orange-100 text-orange-700"
+  Tutorial: "bg-green-500",
+  Seminar: "bg-purple-500",
+  Webinar: "bg-blue-500",
+  Workshop: "bg-orange-500"
 };
 
-const VideoCard = ({ video, playlistMode = false, onEnd }) => {
-  const [showTranscript, setShowTranscript] = useState(false);
-  const iframeRef = useRef(null);
-
-  // Listen for video end using YouTube Player API (postMessage simulation)
-  useEffect(() => {
-    if (!playlistMode) return;
-
-    const handleMessage = (event) => {
-      if (
-        event.data &&
-        typeof event.data === "string" &&
-        event.data.includes('"event":"onStateChange"')
-      ) {
-        const data = JSON.parse(event.data.replace("youtube-player:", ""));
-        if (data.info === 0 && onEnd) {
-          // 0 = ended
-          onEnd();
-        }
-      }
-    };
-    window.addEventListener("message", handleMessage);
-    return () => window.removeEventListener("message", handleMessage);
-  }, [playlistMode, onEnd]);
-
-  const videoUrl = playlistMode
-    ? `${video.link}?enablejsapi=1&autoplay=1`
-    : `${video.link}?enablejsapi=1`;
-
+const VideoCard = ({ video, onClick }) => {
   return (
-    <div className="bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition flex flex-col">
-      {/* Video Embed */}
-      <div className="relative w-full pb-[56.25%] mb-4">
-        <iframe
-          ref={iframeRef}
-          src={videoUrl}
-          title={video.title}
-          className="absolute top-0 left-0 w-full h-full rounded-lg"
-          allow="autoplay; encrypted-media"
-          allowFullScreen
-        ></iframe>
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+      className="bg-white/5 backdrop-blur-lg rounded-3xl p-6 ring-1 ring-white/10 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer relative"
+      onClick={onClick}
+    >
+      <div className="relative w-full aspect-video rounded-xl overflow-hidden mb-4 group">
+        <img
+          src={`https://img.youtube.com/vi/${video.link.split('/').pop()}/maxresdefault.jpg`}
+          alt={video.title}
+          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+        />
+        <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <motion.div
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            transition={{ type: "spring", stiffness: 300 }}
+            className="w-16 h-16 rounded-full bg-white/30 flex items-center justify-center text-white"
+          >
+            <PlayIcon />
+          </motion.div>
+        </div>
       </div>
-
-      {/* Title */}
-      <h2 className="text-lg font-semibold mb-1">{video.title}</h2>
-
-      {/* Category Badge */}
-      <span
-        className={`inline-block px-2 py-1 text-xs rounded-full mb-2 ${
-          categoryColors[video.category] || "bg-gray-100 text-gray-700"
-        }`}
-      >
+      <span className={`inline-block px-4 py-1 text-xs font-semibold rounded-full mb-2 ${categoryColors[video.category]} text-white`}>
         {video.category}
       </span>
-
-      {/* Description */}
-      <p className="text-sm text-gray-700 mb-2 flex-grow">{video.description}</p>
-
-      {/* Transcript toggle */}
-      {video.transcript && (
-        <div>
-          <button
-            onClick={() => setShowTranscript(!showTranscript)}
-            className="text-blue-600 text-sm hover:underline"
-          >
-            {showTranscript ? "Hide Transcript" : "Show Transcript"}
-          </button>
-          {showTranscript && (
-            <p className="mt-2 text-sm text-gray-600 bg-gray-50 p-2 rounded">
-              {video.transcript}
-            </p>
-          )}
-        </div>
-      )}
-    </div>
+      <h2 className="text-xl font-bold mb-2 text-white">{video.title}</h2>
+      <p className="text-sm text-gray-300 flex-grow">{video.description}</p>
+    </motion.div>
   );
 };
 

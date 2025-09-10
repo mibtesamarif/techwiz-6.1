@@ -1,41 +1,34 @@
-import React from 'react';
-
-// CloseIcon
-const CloseIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M18 6L6 18M6 6l12 12"/>
-  </svg>
-);
-
-// BookmarkIcon
-const BookmarkIcon = () => (
-  <svg className="w-5 h-5 mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>
-  </svg>
-);
+import { motion } from "framer-motion";
 
 const CareerModal = ({ career, onClose, onBookmark }) => {
   const salaryMid = (career.salaryMin + career.salaryMax) / 2;
   const progress = Math.min((salaryMid / 200000) * 100, 100);
 
   return (
-    <div 
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
       onClick={onClose}
     >
-      <div 
-        className="bg-white/25 border border-white/30 text-white rounded-3xl shadow-2xl p-8 max-w-2xl w-full relative backdrop-blur-lg transform transition-all duration-300 scale-100 max-h-[90vh] overflow-y-auto"
+      <motion.div
+        initial={{ scale: 0.9, y: 50 }}
+        animate={{ scale: 1, y: 0 }}
+        exit={{ scale: 0.9, y: 50 }}
+        transition={{ duration: 0.3 }}
+        className="bg-white/25 border border-white/30 text-white rounded-3xl shadow-2xl p-8 max-w-2xl w-full relative backdrop-blur-lg max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close Button */}
         <button
           onClick={onClose}
           className="absolute top-6 right-6 text-gray-300 hover:text-white transition-colors duration-200 p-2 rounded-full hover:bg-white/10"
         >
-          <CloseIcon />
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
         </button>
-        
-        {/* Header Image */}
+
         <div className="relative mb-8">
           <img
             src={career.image}
@@ -46,10 +39,8 @@ const CareerModal = ({ career, onClose, onBookmark }) => {
             {career.industry}
           </div>
         </div>
-        
-        {/* Content */}
+
         <div className="space-y-6">
-          {/* Title and Description */}
           <div>
             <h2 className="text-4xl font-bold mb-3 text-purple-200">
               {career.title}
@@ -58,8 +49,7 @@ const CareerModal = ({ career, onClose, onBookmark }) => {
               {career.description}
             </p>
           </div>
-          
-          {/* Salary Section */}
+
           <div className="bg-white/10 rounded-2xl p-6 border border-white/20">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-semibold text-white">Salary Range</h3>
@@ -67,11 +57,11 @@ const CareerModal = ({ career, onClose, onBookmark }) => {
                 {Math.round(progress)}% of market max
               </span>
             </div>
-            
+
             <p className="text-3xl font-bold text-green-300 mb-4">
               ${career.salaryMin.toLocaleString()} – ${career.salaryMax.toLocaleString()}
             </p>
-            
+
             <div className="w-full bg-gray-700/50 rounded-full h-4 shadow-inner">
               <div
                 className="h-4 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 shadow-lg"
@@ -79,10 +69,8 @@ const CareerModal = ({ career, onClose, onBookmark }) => {
               />
             </div>
           </div>
-          
-          {/* Details Grid */}
+
           <div className="grid md:grid-cols-2 gap-6">
-            {/* Skills */}
             <div className="bg-white/10 rounded-2xl p-6 border border-white/20">
               <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -92,7 +80,7 @@ const CareerModal = ({ career, onClose, onBookmark }) => {
               </h3>
               <div className="flex flex-wrap gap-3">
                 {career.skills.map((skill, index) => (
-                  <span 
+                  <span
                     key={index}
                     className="bg-gradient-to-r from-purple-500/20 to-indigo-500/20 text-purple-200 px-4 py-2 rounded-full text-sm font-medium border border-purple-400/30"
                   >
@@ -101,8 +89,7 @@ const CareerModal = ({ career, onClose, onBookmark }) => {
                 ))}
               </div>
             </div>
-            
-            {/* Education */}
+
             <div className="bg-white/10 rounded-2xl p-6 border border-white/20">
               <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -115,17 +102,18 @@ const CareerModal = ({ career, onClose, onBookmark }) => {
               </p>
             </div>
           </div>
-          
-          {/* Action Buttons */}
+
           <div className="flex gap-4 pt-4">
             <button
-              onClick={() => onBookmark(career.title)}
+              onClick={() => onBookmark(career)}
               className="flex-1 bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-4 px-6 rounded-xl font-bold shadow-lg hover:from-purple-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-300 flex items-center justify-center"
             >
-              <BookmarkIcon />
+              <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>
+              </svg>
               Bookmark Career
             </button>
-            
+
             <button
               onClick={onClose}
               className="px-6 py-4 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 transition-all duration-300 border border-white/20"
@@ -134,9 +122,8 @@ const CareerModal = ({ career, onClose, onBookmark }) => {
             </button>
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
-
 export default CareerModal;

@@ -3,28 +3,42 @@
     "id": 1,
     "title": "Resume Writing Guide",
     "type": "Article",
-    "description": "Learn how to create a professional resume that gets noticed.",
-    "link": "/resources/resume-guide.pdf"
+    "description": "Learn how to create a professional resume that gets noticed and lands you the interview.",
+    "link": "https://placehold.co/800x600/1e293b/f8fafc?text=Resume+Guide"
   },
   {
     "id": 2,
     "title": "Career Planning eBook",
     "type": "eBook",
-    "description": "A comprehensive eBook on planning your career path.",
-    "link": "/resources/career-planning.pdf"
+    "description": "A comprehensive eBook on planning your career path, setting goals, and achieving long-term success.",
+    "link": "https://placehold.co/800x600/1e293b/f8fafc?text=eBook"
   },
   {
     "id": 3,
     "title": "Interview Checklist",
     "type": "Checklist",
-    "description": "Step-by-step checklist to prepare for your next interview.",
-    "link": "/resources/interview-checklist.pdf"
+    "description": "A step-by-step checklist to prepare for your next interview and make a great first impression.",
+    "link": "https://placehold.co/800x600/1e293b/f8fafc?text=Checklist"
   },
   {
     "id": 4,
     "title": "Career Growth Webinar",
     "type": "Webinar",
-    "description": "Watch our expert panel discuss strategies for long-term career growth.",
+    "description": "Watch our expert panel discuss strategies for long-term career growth and professional development.",
     "link": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+  },
+  {
+    "id": 5,
+    "title": "Networking Best Practices",
+    "type": "Article",
+    "description": "Discover the art of professional networking and how to build meaningful connections for career opportunities.",
+    "link": "https://placehold.co/800x600/1e293b/f8fafc?text=Networking+Article"
+  },
+  {
+    "id": 6,
+    "title": "Salary Negotiation Guide",
+    "type": "eBook",
+    "description": "Learn powerful negotiation techniques to secure the salary you deserve in your next role.",
+    "link": "https://placehold.co/800x600/1e293b/f8fafc?text=Salary+eBook"
   }
 ]

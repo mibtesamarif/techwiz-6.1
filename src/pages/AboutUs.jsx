@@ -1,104 +1,9 @@
-// // src/pages/AboutUs.jsx
-// import Breadcrumbs from "../components/Breadcrumbs";
-// const AboutUs = () => {
-//   const team = [
-//     {
-//       id: 1,
-//       name: "Priya Sharma",
-//       role: "Project Lead",
-//       image: "/assets/priya.jpg"
-//     },
-//     {
-//       id: 2,
-//       name: "Arjun Mehta",
-//       role: "UI/UX Designer",
-//       image: "/assets/arjun.jpg"
-//     },
-//     {
-//       id: 3,
-//       name: "Sophia Lee",
-//       role: "Frontend Developer",
-//       image: "/assets/sophia.jpg"
-//     }
-//   ];
-
-//   return (
-//     <div className="space-y-8">
-//       <Breadcrumbs />
-//       <h1 className="text-3xl font-bold mb-6">About Us</h1>
-
-//       {/* Portal Info */}
-//       <section className="bg-white shadow-md rounded-lg p-6">
-//         <h2 className="text-xl font-semibold mb-3">Our Mission</h2>
-//         <p className="text-gray-700 leading-relaxed">
-//           NextStep Navigator is a career guidance portal designed to help
-//           students, graduates, and working professionals explore career options,
-//           access resources, and prepare for their future. Our goal is to provide
-//           clear, reliable, and accessible information — empowering individuals
-//           to make informed decisions about their career paths.
-//         </p>
-//       </section>
-
-//       {/* Team Section */}
-//       <section>
-//         <h2 className="text-xl font-semibold mb-4">Meet Our Team</h2>
-//         <div className="grid md:grid-cols-3 gap-6">
-//           {team.map((member) => (
-//             <div
-//               key={member.id}
-//               className="bg-white shadow-md rounded-lg p-4 text-center hover:shadow-lg transition"
-//             >
-//               <img
-//                 src={member.image || "/vite.svg"}
-//                 alt={member.name}
-//                 className="w-24 h-24 mx-auto rounded-full object-cover mb-3"
-//               />
-//               <h3 className="text-lg font-semibold">{member.name}</h3>
-//               <p className="text-gray-600 text-sm">{member.role}</p>
-//             </div>
-//           ))}
-//         </div>
-//       </section>
-//     </div>
-//   );
-// };
-
-// export default AboutUs;
-
-
 import React from "react";
 import { motion } from "framer-motion";
+import { UserIcon, MissionIcon } from "../components/icons";
+import Breadcrumbs from "../components/Breadcrumbs";
 
-// Inline SVG Icons
-const MissionIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-teal-400 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-  </svg>
-);
 
-const UserIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-400 mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
-    <circle cx="12" cy="7" r="4" />
-  </svg>
-);
-
-// Helper function for a static breadcrumb to avoid react-router-dom dependency
-const Breadcrumbs = () => (
-  <nav className="text-sm my-4">
-    <ol className="flex items-center space-x-2 bg-white/10 backdrop-blur-md rounded-full px-4 py-2 shadow-lg ring-1 ring-white/10">
-      <li className="text-gray-300 hover:text-white transition-colors duration-200">
-        <a href="/">Home</a>
-      </li>
-      <li className="flex items-center space-x-2">
-        <span className="h-4 w-4 text-gray-400">/</span>
-        <span className="capitalize text-white font-semibold">about us</span>
-      </li>
-    </ol>
-  </nav>
-);
-
-// Main AboutUs App
 const AboutUs = () => {
   const team = [
     {
@@ -126,7 +31,7 @@ const AboutUs = () => {
       <div className="max-w-6xl mx-auto space-y-12">
         <div className="flex justify-center">
           <Breadcrumbs />
-        </div>
+          </div>
 
         {/* Hero Section with Mission */}
         <motion.section

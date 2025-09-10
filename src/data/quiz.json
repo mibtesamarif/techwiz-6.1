@@ -4,19 +4,16 @@
     "text": "Which activity excites you the most?",
     "options": [
       {
-        "value": "coding",
-        "label": "Building apps or websites",
-        "recommendations": ["Software Engineer", "Web Developer"]
+        "value": "tech",
+        "label": "Building apps or websites"
       },
       {
-        "value": "healing",
-        "label": "Helping people recover from illness",
-        "recommendations": ["Doctor", "Nurse"]
+        "value": "healthcare",
+        "label": "Helping people recover from illness"
       },
       {
         "value": "business",
-        "label": "Managing people or projects",
-        "recommendations": ["Manager", "Entrepreneur"]
+        "label": "Managing people or projects"
       }
     ]
   },
@@ -25,19 +22,70 @@
     "text": "What type of environment do you enjoy?",
     "options": [
       {
-        "value": "lab",
-        "label": "Working with experiments and research",
-        "recommendations": ["Scientist", "Biotech Specialist"]
+        "value": "science",
+        "label": "Working with experiments and research"
       },
       {
         "value": "creative",
-        "label": "Designing, writing, or creating visuals",
-        "recommendations": ["Graphic Designer", "Content Creator"]
+        "label": "Designing, writing, or creating visuals"
       },
       {
         "value": "tech",
-        "label": "Exploring new technologies",
-        "recommendations": ["AI Engineer", "Data Scientist"]
+        "label": "Exploring new technologies"
+      }
+    ]
+  },
+  {
+    "id": "q3",
+    "text": "What do you do in your free time?",
+    "options": [
+      {
+        "value": "creative",
+        "label": "Writing stories or drawing"
+      },
+      {
+        "value": "healthcare",
+        "label": "Volunteering for a cause"
+      },
+      {
+        "value": "business",
+        "label": "Reading about market trends or investments"
+      }
+    ]
+  },
+  {
+    "id": "q4",
+    "text": "What problem do you enjoy solving most?",
+    "options": [
+      {
+        "value": "tech",
+        "label": "A technical bug in a program"
+      },
+      {
+        "value": "science",
+        "label": "A complex scientific puzzle"
+      },
+      {
+        "value": "business",
+        "label": "A logistical or organizational challenge"
+      }
+    ]
+  },
+  {
+    "id": "q5",
+    "text": "What's most important to you in a career?",
+    "options": [
+      {
+        "value": "tech",
+        "label": "Innovation and building new things"
+      },
+      {
+        "value": "healthcare",
+        "label": "Making a direct, positive impact on others' lives"
+      },
+      {
+        "value": "business",
+        "label": "Leadership and growth opportunities"
       }
     ]
   }
