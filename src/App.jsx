@@ -45,7 +45,7 @@ function App() {
         <Navbar />
 
         {/* Main content */}
-        <main className="flex-grow container mx-auto px-4 py-6">
+        <main className="container flex-grow px-4 py-6 mx-auto">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/career-bank" element={<CareerBank />} />
