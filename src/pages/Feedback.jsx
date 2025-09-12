@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Breadcrumbs from "../components/Breadcrumbs";
-import { MailIcon } from "../components/icons";
-import { UserIcon } from "../components/icons";
-import { MessageIcon } from "../components/icons";
-import { CheckCircleIcon } from "../components/icons";  
-
+import { CheckCircleIcon, MailIcon, MessageIcon, UserIcon } from "../components/icons";
 
 const Feedback = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -20,7 +16,6 @@ const Feedback = () => {
 
     let valid = true;
 
-    // Validate Name field
     const nameRegex = /^[a-zA-Z\s]+$/;
     if (name.length < 3) {
       setNameError('Name must be at least 3 characters long.');
@@ -32,7 +27,6 @@ const Feedback = () => {
       setNameError('');
     }
 
-    // Validate Message field
     if (message.length > 250) {
       setMessageError('Message cannot exceed 250 characters.');
       valid = false;
@@ -41,7 +35,6 @@ const Feedback = () => {
     }
 
     if (valid) {
-      // Simulate API call or form processing
       console.log('Form submitted:', { name, email, message });
       setTimeout(() => {
         setSubmitted(true);
@@ -50,22 +43,25 @@ const Feedback = () => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-gray-900 to-gray-950 min-h-screen font-sans text-gray-100 p-4 sm:p-8 flex items-center justify-center">
-      <div className="max-w-lg mx-auto w-full">
-        <div className="flex justify-center mb-8">
-            <Breadcrumbs />
+    <div className="flex items-center justify-center min-h-screen p-4 font-sans bg-gradient-to-br from-teal-900 via-teal-800 to-emerald-900 sm:p-8">
+      <div className="w-full max-w-lg mx-auto">
+        <div className="flex justify-center mb-8 text-amber-50">
+          <Breadcrumbs />
         </div>
 
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="bg-white/10 backdrop-blur-lg rounded-3xl p-6 md:p-10 shadow-2xl ring-1 ring-white/10"
+          className="p-6 shadow-2xl backdrop-blur-lg rounded-3xl md:p-10 ring-1 ring-amber-200/20"
+          style={{
+            background: 'linear-gradient(135deg, rgba(255, 248, 225, 0.95) 0%, rgba(255, 248, 225, 0.85) 100%)'
+          }}
         >
-          <h1 className="text-4xl font-extrabold text-white mb-4 text-center">
+          <h1 className="mb-4 text-4xl font-extrabold text-center text-teal-800">
             Your Feedback Matters
           </h1>
-          <p className="text-gray-300 mb-8 text-center max-w-sm mx-auto">
+          <p className="max-w-sm mx-auto mb-8 text-center text-teal-700/80">
             We'd love to hear your thoughts. Help us improve by sharing your feedback.
           </p>
 
@@ -80,9 +76,8 @@ const Feedback = () => {
                 onSubmit={handleSubmit}
                 className="space-y-6"
               >
-                {/* Name */}
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-2 text-purple-200">
+                  <label htmlFor="name" className="block mb-2 text-sm font-medium text-teal-800">
                     Your Name
                   </label>
                   <div className="relative">
@@ -95,16 +90,15 @@ const Feedback = () => {
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className={`w-full pl-12 pr-4 py-3 bg-white/5 border rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:outline-none transition-all ${nameError ? 'border-red-500' : 'border-white/20'}`}
+                      className={`w-full pl-12 pr-4 py-3 bg-teal-50/70 border rounded-xl text-teal-900 placeholder-teal-500 focus:ring-2 focus:ring-amber-400 focus:border-amber-400 focus:outline-none transition-all ${nameError ? 'border-pink-400 focus:ring-pink-400 focus:border-pink-400' : 'border-teal-200 hover:border-teal-300'}`}
                       placeholder="e.g., Jane Doe"
                     />
                   </div>
-                  {nameError && <p className="mt-2 text-sm text-red-500">{nameError}</p>}
+                  {nameError && <p className="mt-2 text-sm text-pink-600">{nameError}</p>}
                 </div>
 
-                {/* Email */}
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-2 text-purple-200">
+                  <label htmlFor="email" className="block mb-2 text-sm font-medium text-teal-800">
                     Email Address
                   </label>
                   <div className="relative">
@@ -117,15 +111,14 @@ const Feedback = () => {
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:outline-none transition-all"
+                      className="w-full py-3 pl-12 pr-4 text-teal-900 placeholder-teal-500 transition-all border border-teal-200 bg-teal-50/70 hover:border-teal-300 rounded-xl focus:ring-2 focus:ring-amber-400 focus:border-amber-400 focus:outline-none"
                       placeholder="you@example.com"
                     />
                   </div>
                 </div>
 
-                {/* Message */}
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium mb-2 text-purple-200">
+                  <label htmlFor="message" className="block mb-2 text-sm font-medium text-teal-800">
                     Your Message
                   </label>
                   <div className="relative">
@@ -138,17 +131,16 @@ const Feedback = () => {
                       required
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
-                      className={`w-full pl-12 pr-4 py-3 bg-white/5 border rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:outline-none transition-all resize-none ${messageError ? 'border-red-500' : 'border-white/20'}`}
+                      className={`w-full pl-12 pr-4 py-3 bg-teal-50/70 border rounded-xl text-teal-900 placeholder-teal-500 focus:ring-2 focus:ring-amber-400 focus:border-amber-400 focus:outline-none transition-all resize-none ${messageError ? 'border-pink-400 focus:ring-pink-400 focus:border-pink-400' : 'border-teal-200 hover:border-teal-300'}`}
                       placeholder="Write your feedback here..."
                     ></textarea>
                   </div>
-                  {messageError && <p className="mt-2 text-sm text-red-500">{messageError}</p>}
+                  {messageError && <p className="mt-2 text-sm text-pink-600">{messageError}</p>}
                 </div>
 
-                {/* Submit */}
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-4 rounded-xl font-bold shadow-lg hover:from-purple-700 hover:to-indigo-700 transform hover:scale-[1.01] transition-all duration-300"
+                  className="w-full bg-gradient-to-r from-teal-700 to-teal-600 text-cream-100 py-4 rounded-xl font-bold shadow-lg hover:from-teal-800 hover:to-teal-700 transform hover:scale-[1.01] transition-all duration-300 hover:shadow-xl focus:ring-2 focus:ring-amber-400 focus:outline-none text-amber-50"
                 >
                   Submit Feedback
                 </button>
@@ -159,11 +151,11 @@ const Feedback = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.2 }}
-                className="text-center py-10"
+                className="py-10 text-center"
               >
                 <CheckCircleIcon />
-                <h2 className="text-3xl font-bold text-green-400 mb-2">Thank You!</h2>
-                <p className="text-lg text-gray-300">
+                <h2 className="mb-2 text-3xl font-bold text-teal-800">Thank You!</h2>
+                <p className="text-lg text-teal-700/80">
                   Your feedback has been successfully submitted. We appreciate you!
                 </p>
               </motion.div>

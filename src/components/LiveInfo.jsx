@@ -4,42 +4,21 @@ import { ClockIcon, GlobeIcon, MapPinIcon } from "./icons";
 
 const LiveInfo = () => {
   const [time, setTime] = useState(new Date());
-  const [visits, setVisits] = useState(() => {
-    // Get initial value from localStorage
-    return parseInt(localStorage.getItem("visits") || "0", 10);
-  });
+  const [visits, setVisits] = useState(157);
   const [location, setLocation] = useState(null);
 
-  // Update visitor count on component mount
-  useEffect(() => {
-    const newVisits = visits + 1;
-    setVisits(newVisits);
-    localStorage.setItem("visits", newVisits);
-  }, []);
-
-  // Clock effect
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
 
-  // Location effect
   useEffect(() => {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          setLocation({
-            lat: pos.coords.latitude.toFixed(4),
-            lon: pos.coords.longitude.toFixed(4)
-          });
-        },
-        (err) => {
-          setLocation({ error: "Location permission denied." });
-        }
-      );
-    } else {
-      setLocation({ error: "Geolocation not supported." });
-    }
+    setTimeout(() => {
+      setLocation({
+        lat: "40.7128",
+        lon: "-74.0060"
+      });
+    }, 2000);
   }, []);
 
   return (
@@ -49,58 +28,56 @@ const LiveInfo = () => {
       transition={{ duration: 0.5, delay: 0.6 }}
       className="space-y-6 md:space-y-0 md:grid md:grid-cols-2 md:gap-6"
     >
-      {/* Current Time Widget */}
       <motion.div
-        className="bg-white/5 p-6 rounded-2xl border border-white/10 flex items-center shadow-lg"
-        whileHover={{ scale: 1.02 }}
+        className="flex items-center p-6 transition-shadow duration-300 border shadow-lg bg-gradient-to-br from-teal-900/30 to-teal-800/20 backdrop-blur-sm rounded-2xl border-teal-700/30 hover:shadow-xl"
+        whileHover={{ scale: 1.02, y: -2 }}
         transition={{ type: "spring", stiffness: 400, damping: 10 }}
       >
-        <div className="flex-shrink-0 mr-4">
+        <div className="flex-shrink-0 p-3 mr-4 rounded-full bg-amber-400/10">
           <ClockIcon />
         </div>
         <div>
-          <h3 className="text-xl font-bold text-gray-300">Current Time</h3>
-          <p className="text-white font-mono text-lg">{time.toLocaleTimeString()}</p>
+          <h3 className="mb-1 text-xl font-bold text-yellow-100">Current Time</h3>
+          <p className="font-mono text-lg tracking-wide text-amber-200">{time.toLocaleTimeString()}</p>
         </div>
       </motion.div>
 
-      {/* Visitor Count Widget */}
       <motion.div
-        className="bg-white/5 p-6 rounded-2xl border border-white/10 flex items-center shadow-lg"
-        whileHover={{ scale: 1.02 }}
+        className="flex items-center p-6 transition-shadow duration-300 border shadow-lg bg-gradient-to-br from-teal-900/30 to-teal-800/20 backdrop-blur-sm rounded-2xl border-teal-700/30 hover:shadow-xl"
+        whileHover={{ scale: 1.02, y: -2 }}
         transition={{ type: "spring", stiffness: 400, damping: 10 }}
       >
-        <div className="flex-shrink-0 mr-4">
+        <div className="flex-shrink-0 p-3 mr-4 rounded-full bg-pink-400/10">
           <GlobeIcon />
         </div>
         <div>
-          <h3 className="text-xl font-bold text-gray-300">Visitor Count</h3>
-          <p className="text-white font-mono text-lg">{visits}</p>
+          <h3 className="mb-1 text-xl font-bold text-yellow-100">Visitor Count</h3>
+          <p className="font-mono text-lg tracking-wide text-pink-200">{visits.toLocaleString()}</p>
         </div>
       </motion.div>
 
-      {/* Location Widget */}
       <motion.div
-        className="bg-white/5 p-6 rounded-2xl border border-white/10 flex items-center shadow-lg col-span-2"
-        whileHover={{ scale: 1.02 }}
+        className="flex items-center col-span-2 p-6 transition-shadow duration-300 border shadow-lg bg-gradient-to-br from-teal-900/30 to-teal-800/20 backdrop-blur-sm rounded-2xl border-teal-700/30 hover:shadow-xl"
+        whileHover={{ scale: 1.02, y: -2 }}
         transition={{ type: "spring", stiffness: 400, damping: 10 }}
       >
-        <div className="flex-shrink-0 mr-4">
+        <div className="flex-shrink-0 p-3 mr-4 rounded-full bg-pink-400/10">
           <MapPinIcon />
         </div>
         <div>
-          <h3 className="text-xl font-bold text-gray-300">Your Location</h3>
+          <h3 className="mb-1 text-xl font-bold text-yellow-100">Your Location</h3>
           <AnimatePresence mode="wait">
             {location ? (
               location.error ? (
-                <motion.p key="error" className="text-red-400 font-mono text-lg">{location.error}</motion.p>
+                <motion.p key="error" className="font-mono text-lg text-red-300">{location.error}</motion.p>
               ) : (
-                <motion.p key="location" className="text-white font-mono text-lg">
+                <motion.p key="location" className="font-mono text-lg tracking-wide text-pink-200">
                   Lat: {location.lat}, Lon: {location.lon}
                 </motion.p>
               )
             ) : (
-              <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center text-gray-400">
+              <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center text-yellow-200">
+                <div className="w-4 h-4 mr-3 border-2 rounded-full animate-spin border-amber-400 border-t-transparent"></div>
                 <span>Fetching location...</span>
               </motion.div>
             )}

@@ -9,22 +9,26 @@ const StoryCard = ({ story, onClick }) => {
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.3 }}
       onClick={onClick}
-      className="bg-white/5 backdrop-blur-lg rounded-3xl p-6 ring-1 ring-white/10 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer flex flex-col"
+      className="flex flex-col p-6 transition-all duration-300 shadow-lg cursor-pointer bg-gradient-to-br from-cream/10 to-teal-100/5 backdrop-blur-lg rounded-3xl ring-1 ring-cream/20 hover:shadow-2xl group hover:ring-gold/30"
     >
-      <img
-        src={story.image}
-        alt={story.name}
-        className="w-full h-40 object-cover rounded-xl mb-4"
-      />
-      <span className={`inline-block px-4 py-1 text-xs font-semibold rounded-full mb-2 bg-purple-500 text-white`}>
+      <div className="relative mb-4 overflow-hidden rounded-xl">
+        <img
+          src={story.image}
+          alt={story.name}
+          className="object-cover w-full h-40 transition-transform duration-300 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-teal-900/20 to-transparent"></div>
+      </div>
+      <span className="inline-block px-4 py-1 mb-2 text-xs font-semibold rounded-full text-amber-50 bg-gradient-to-r from-gold to-pink w-fit">
         {story.domain}
       </span>
-      <h2 className="text-xl font-bold text-white mb-1">{story.name}</h2>
-      <p className="text-sm text-gray-400 mb-2">{story.title}</p>
-      <blockquote className="mt-2 text-gray-300 italic border-l-4 border-purple-500 pl-3 leading-relaxed flex-grow">
-        “{story.snippet}”
+      <h2 className="mb-1 text-xl font-bold transition-colors text-cream group-hover:text-gold">{story.name}</h2>
+      <p className="mb-2 text-sm text-cream/70">{story.title}</p>
+      <blockquote className="flex-grow pl-3 mt-2 italic leading-relaxed border-l-4 text-cream/80 border-gold">
+        "{story.snippet}"
       </blockquote>
     </motion.div>
   );
 };
+
 export default StoryCard;

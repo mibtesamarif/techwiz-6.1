@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import resources from "../data/resources.json";
-import { ChevronRight } from "../components/icons";
-import Breadcrumbs from "../components/Breadcrumbs"; 
+import Breadcrumbs from "../components/Breadcrumbs";
 import ResourceCard from "../components/ResourceCard";
 import { addBookmark, getBookmarks } from "../utils/storage";
-
 
 const Resources = () => {
   const [tab, setTab] = useState("All");
@@ -36,31 +34,30 @@ const Resources = () => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-gray-900 to-gray-950 min-h-screen font-sans text-gray-100 p-4 sm:p-8 flex flex-col items-center">
-      <div className="max-w-7xl w-full">
+    <div className="flex flex-col items-center min-h-screen p-4 font-sans bg-gradient-to-br from-teal-900 via-teal-800 to-emerald-900 text-amber-50 sm:p-8">
+      <div className="w-full max-w-7xl">
         <div className="flex justify-center">
           <Breadcrumbs />
         </div>
 
         <div className="my-8">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-2 tracking-tight">
+          <h1 className="mb-2 text-4xl font-extrabold tracking-tight md:text-5xl text-amber-50 drop-shadow-lg">
             Resource Library
           </h1>
-          <p className="text-gray-400 max-w-2xl">
+          <p className="max-w-2xl text-teal-100 opacity-90">
             Explore our curated collection of articles, eBooks, and webinars to boost your career.
           </p>
         </div>
 
-        {/* Tabs */}
-        <div className="mb-10 flex flex-wrap gap-2 p-4 bg-white/5 backdrop-blur-lg rounded-2xl ring-1 ring-white/10">
+        <div className="flex flex-wrap gap-2 p-4 mb-10 shadow-xl bg-amber-50/10 backdrop-blur-lg rounded-2xl ring-1 ring-amber-100/20">
           {types.map((t, idx) => (
             <button
               key={idx}
               onClick={() => setTab(t)}
-              className={`px-4 py-2 rounded-full font-medium transition-all
+              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105
                 ${tab === t
-                  ? "bg-purple-600 text-white shadow-lg"
-                  : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                  ? "bg-gradient-to-r from-yellow-400 to-amber-400 text-teal-900 shadow-lg font-semibold"
+                  : "bg-teal-700/50 text-amber-50 hover:bg-teal-600/60 border border-teal-500/30"
                 }`}
             >
               {t}
@@ -68,25 +65,23 @@ const Resources = () => {
           ))}
         </div>
 
-        {/* Resources grid */}
-        <motion.div layout className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div layout className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence>
             {filtered.length > 0 ? (
               filtered.map((res) => <ResourceCard key={res.id} resource={res} onBookmark={handleAddBookmark} showMessage={showMessage} />)
             ) : (
-              <p className="text-gray-500 col-span-full text-center py-10">No resources found for this category.</p>
+              <p className="py-10 text-lg text-center text-teal-200 col-span-full">No resources found for this category.</p>
             )}
           </AnimatePresence>
         </motion.div>
 
-        {/* Message Box */}
         <AnimatePresence>
           {message && (
             <motion.div
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 50, opacity: 0 }}
-              className="fixed bottom-6 right-6 bg-purple-600 text-white px-6 py-3 rounded-full shadow-lg font-semibold z-50"
+              initial={{ y: 50, opacity: 0, scale: 0.8 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: 50, opacity: 0, scale: 0.8 }}
+              className="fixed z-50 px-8 py-4 font-bold text-teal-900 border-2 rounded-full shadow-2xl bottom-6 right-6 bg-gradient-to-r from-yellow-400 to-amber-400 border-amber-300"
             >
               {message}
             </motion.div>

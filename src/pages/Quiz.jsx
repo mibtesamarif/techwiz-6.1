@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import quizData from "../data/quiz.json";
 import Breadcrumbs from "../components/Breadcrumbs";
-import { ChevronRight, UserRoleIcon } from "../components/icons";
+import { UserRoleIcon } from "../components/icons";
 import QuizQuestion from "../components/QuizQuestion";
-
 
 const recommendations = {
   "tech": {
@@ -12,7 +11,7 @@ const recommendations = {
     "description": "You thrive on innovation and enjoy building solutions. Your logical and analytical mind makes you a great fit for technology-focused roles.",
   },
   "healthcare": {
-    "career": "Nurse or Doctor",
+    "career": "Nurse or Doctor", 
     "description": "Your passion for helping others and your compassionate nature point to a career in healthcare, where you can make a tangible difference in people's lives.",
   },
   "business": {
@@ -31,26 +30,13 @@ const recommendations = {
 
 const allInterests = [...new Set(quizData.flatMap(q => q.options.map(opt => opt.value)))];
 
-
-
 const Quiz = () => {
   const [currentQ, setCurrentQ] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [result, setResult] = useState(null);
   const [selectedInterest, setSelectedInterest] = useState("");
-  const [username, setUsername] = useState("");
-  const [userCategory, setUserCategory] = useState("Student");
-
-  useEffect(() => {
-    const storedUsername = localStorage.getItem("username");
-    const storedUserCategory = localStorage.getItem("userCategory");
-    if (storedUsername) {
-      setUsername(storedUsername);
-    }
-    if (storedUserCategory) {
-      setUserCategory(storedUserCategory);
-    }
-  }, []);
+  const [username, setUsername] = useState((localStorage.getItem("username")));
+  const [userCategory, setUserCategory] = useState((localStorage.getItem("userType")));
 
   const handleAnswer = (answerValue) => {
     const nextAnswers = [...answers, answerValue];
@@ -90,19 +76,29 @@ const Quiz = () => {
     : quizData;
     
   return (
-    <div className="bg-gradient-to-br from-gray-900 to-gray-950 min-h-screen font-sans text-gray-100 p-4 sm:p-8 flex flex-col items-center">
-      <div className="max-w-3xl w-full">
+    <div className="flex flex-col items-center min-h-screen p-4 font-sans bg-gradient-to-br from-teal-900 via-teal-800 to-emerald-900 text-amber-50 sm:p-8">
+      <div className="w-full max-w-3xl">
         <div className="flex justify-center">
           <Breadcrumbs />
         </div>
         
-        <div className="my-8">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-2 tracking-tight">
+        <div className="my-8 text-center">
+          <motion.h1 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="mb-4 text-4xl font-extrabold tracking-tight md:text-5xl text-amber-50"
+          >
             {username ? `${username}'s Career Quiz` : 'Career Quiz'}
-          </h1>
-          <p className="text-gray-400 max-w-2xl">
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="max-w-2xl mx-auto text-lg leading-relaxed text-amber-100/80"
+          >
             {username ? `As a ${userCategory.toLowerCase()}, answer these questions to find a career path that aligns with your interests.` : 'Answer these questions to discover a career path that aligns with your interests and personality.'}
-          </p>
+          </motion.p>
         </div>
 
         <AnimatePresence mode="wait">
@@ -112,35 +108,58 @@ const Quiz = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="bg-white/5 backdrop-blur-lg rounded-3xl p-6 sm:p-10 ring-1 ring-white/10 shadow-lg"
+              className="p-6 border shadow-2xl bg-amber-50/10 backdrop-blur-lg rounded-3xl sm:p-10 ring-1 ring-amber-50/20 border-amber-100/10"
             >
-              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">
+              <h2 className="mb-8 text-2xl font-bold text-center sm:text-3xl text-amber-50">
                 Choose an interest to begin:
               </h2>
               <div className="relative w-full">
                 <select
                   value={selectedInterest}
                   onChange={(e) => setSelectedInterest(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/10 border-none rounded-xl text-white focus:ring-2 focus:ring-purple-500 focus:outline-none transition-all appearance-none pr-10"
+                  className="w-full px-6 py-4 pr-12 text-lg font-medium transition-all border-2 shadow-lg appearance-none bg-amber-50/15 border-amber-50/20 rounded-2xl text-amber-50 focus:ring-2 focus:ring-amber-500 focus:border-amber-400 focus:outline-none"
                 >
-                  <option value="" className="bg-gray-800 text-gray-200">Select an interest...</option>
+                  <option value="" className="bg-teal-800 text-amber-100">Select an interest...</option>
                   {allInterests.map(interest => (
-                    <option key={interest} value={interest} className="bg-gray-800 text-gray-200 capitalize">
+                    <option key={interest} value={interest} className="capitalize bg-teal-800 text-amber-100">
                       {interest}
                     </option>
                   ))}
                 </select>
                 <UserRoleIcon />
               </div>
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+                className="mt-6 text-sm text-center text-amber-200/70"
+              >
+                Select your area of interest to get personalized questions
+              </motion.div>
             </motion.div>
           ) : !result ? (
             <motion.div
               key="quiz"
-              className="bg-white/5 backdrop-blur-lg rounded-3xl p-6 sm:p-10 ring-1 ring-white/10 shadow-lg"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="p-6 border shadow-2xl bg-amber-50/10 backdrop-blur-lg rounded-3xl sm:p-10 ring-1 ring-amber-50/20 border-amber-100/10"
             >
-              <p className="text-sm text-gray-400 mb-6 font-medium">
-                Question {currentQ + 1} of {filteredQuizData.length}
-              </p>
+              <div className="flex items-center justify-between mb-8">
+                <p className="px-4 py-2 text-sm font-medium rounded-full text-amber-200/80 bg-amber-50/10">
+                  Question {currentQ + 1} of {filteredQuizData.length}
+                </p>
+                <div className="flex space-x-2">
+                  {Array.from({ length: filteredQuizData.length }).map((_, i) => (
+                    <div
+                      key={i}
+                      className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                        i <= currentQ ? 'bg-amber-500' : 'bg-amber-50/20'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
               <QuizQuestion
                 question={filteredQuizData[currentQ]}
                 onAnswer={handleAnswer}
@@ -152,44 +171,85 @@ const Quiz = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="bg-purple-900/40 border-2 border-purple-500 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-lg text-center space-y-6"
+              className="p-6 space-y-8 text-center border-2 shadow-2xl bg-gradient-to-br from-amber-100/20 via-amber-50/15 to-rose-100/10 border-amber-400/50 rounded-3xl sm:p-10 backdrop-blur-lg ring-1 ring-amber-300/20"
             >
-              <h2 className="text-3xl font-bold text-white">🎉 Quiz Completed!</h2>
-              <p className="text-lg text-purple-200">
-                Your ideal career path could be...
-              </p>
-              <p className="text-4xl font-extrabold text-purple-400 capitalize">
-                {careerRecommendation.career}
-              </p>
-              <p className="text-gray-300 max-w-lg mx-auto leading-relaxed">
-                {careerRecommendation.description}
-              </p>
-              <div className="flex items-center justify-center space-x-4">
-                <div className="w-full h-3 bg-white/20 rounded-full overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: `${result.confidence}%` }}
-                    transition={{ duration: 1 }}
-                    className="h-full rounded-full bg-gradient-to-r from-purple-500 to-indigo-500"
-                  >
-                  </motion.div>
-                </div>
-                <p className="font-semibold text-lg text-purple-300 w-20 text-right">
-                  {result.confidence}%
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.6, type: "spring" }}
+              >
+                <h2 className="mb-2 text-3xl font-bold text-amber-50">🎉 Quiz Completed!</h2>
+                <p className="text-lg text-amber-100/90">
+                  Your ideal career path could be...
                 </p>
-              </div>
-              <p className="text-sm text-gray-400">
-                Confidence level based on your answers.
-              </p>
-              <button
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.5 }}
+                className="p-6 border bg-amber-50/10 rounded-2xl border-amber-400/30"
+              >
+                <p className="mb-4 text-4xl font-extrabold capitalize text-amber-400">
+                  {careerRecommendation.career}
+                </p>
+                <p className="max-w-lg mx-auto leading-relaxed text-amber-100/90">
+                  {careerRecommendation.description}
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5, duration: 0.5 }}
+                className="space-y-4"
+              >
+                <p className="font-medium text-amber-200/90">Confidence Level</p>
+                <div className="flex items-center justify-center space-x-4">
+                  <div className="w-full h-4 overflow-hidden border rounded-full bg-teal-700/50 border-amber-400/30">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: `${result.confidence}%` }}
+                      transition={{ duration: 1.5, ease: "easeOut" }}
+                      className="h-full rounded-full shadow-lg bg-gradient-to-r from-amber-400 via-amber-500 to-rose-400"
+                    />
+                  </div>
+                  <p className="w-20 text-xl font-bold text-right text-amber-400">
+                    {result.confidence}%
+                  </p>
+                </div>
+                <p className="text-sm text-amber-200/70">
+                  Based on your answers and preferences
+                </p>
+              </motion.div>
+
+              <motion.button
                 onClick={resetQuiz}
-                className="mt-6 bg-purple-600 text-white font-bold px-8 py-3 rounded-full shadow-lg hover:bg-purple-700 transform hover:scale-105 transition-all"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7, duration: 0.5 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-10 py-4 mt-8 font-bold text-teal-900 transition-all duration-300 transform border shadow-xl bg-gradient-to-r from-amber-500 to-amber-600 rounded-2xl hover:from-amber-400 hover:to-amber-500 border-amber-400/50"
               >
                 Retake Quiz
-              </button>
+              </motion.button>
             </motion.div>
           )}
         </AnimatePresence>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.1 }}
+          transition={{ duration: 2 }}
+          className="fixed w-32 h-32 rounded-full top-10 right-10 bg-amber-400/10 blur-3xl"
+        />
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.1 }}
+          transition={{ duration: 2, delay: 0.5 }}
+          className="fixed w-48 h-48 rounded-full bottom-10 left-10 bg-rose-400/10 blur-3xl"
+        />
       </div>
     </div>
   );

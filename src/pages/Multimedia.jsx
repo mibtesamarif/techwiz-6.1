@@ -1,19 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Breadcrumbs from "../components/Breadcrumbs";
-import { PlayIcon } from "../components/icons";
 import media from "../data/media.json";
 import VideoCard from "../components/VideoCard";
 
 const videoCategories = ["All", ...new Set(media.map((m) => m.category))];
-
-
-const categoryColors = {
-  Tutorial: "bg-green-500",
-  Seminar: "bg-purple-500",
-  Webinar: "bg-blue-500",
-  Workshop: "bg-orange-500"
-};
 
 const Multimedia = () => {
   const [selectedUserCategory, setSelectedUserCategory] = useState("All");
@@ -22,10 +13,7 @@ const Multimedia = () => {
   const [showTranscript, setShowTranscript] = useState(false);
 
   useEffect(() => {
-    const userTypeFromLocalStorage = localStorage.getItem("userType");
-    if (userTypeFromLocalStorage) {
-      setSelectedUserCategory(userTypeFromLocalStorage);
-    }
+    setSelectedUserCategory("All");
   }, []);
 
   const filteredMedia = media.filter(vid =>
@@ -39,55 +27,81 @@ const Multimedia = () => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-gray-900 to-gray-950 min-h-screen font-sans text-gray-100 p-4 sm:p-8 flex flex-col items-center">
-      <div className="max-w-7xl w-full">
+    <div className="flex flex-col items-center min-h-screen p-4 font-sans bg-gradient-to-br from-teal-950 via-teal-900 to-emerald-950 text-amber-50 sm:p-8">
+      <div className="w-full max-w-7xl">
         <div className="flex justify-center">
           <Breadcrumbs />
         </div>
-        <div className="my-8">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-2 tracking-tight">
+        
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="my-12 text-center"
+        >
+          <h1 className="mb-4 text-5xl font-bold tracking-tight text-amber-50 md:text-7xl bg-clip-text bg-gradient-to-r from-amber-200 via-amber-100 to-yellow-200">
             Multimedia Hub
           </h1>
-          <p className="text-gray-400 max-w-2xl">
-            Explore a curated collection of videos related to career development, tutorials, and more.
+          <div className="w-24 h-1 mx-auto mb-6 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500"></div>
+          <p className="max-w-2xl mx-auto text-lg leading-relaxed text-amber-50">
+            Explore a curated collection of premium videos featuring career development insights, comprehensive tutorials, and expert-led sessions.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Video Category Filter */}
-        <div className="mb-10">
-          <h3 className="text-lg font-semibold text-gray-200 mb-2">Filter by Video Category:</h3>
-          <div className="flex flex-wrap gap-2 p-4 bg-white/5 backdrop-blur-lg rounded-2xl ring-1 ring-white/10">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mb-12"
+        >
+          <h3 className="mb-4 text-xl font-bold text-center text-amber-50">Filter by Category</h3>
+          <div className="flex flex-wrap justify-center gap-3 p-6 border shadow-2xl bg-gradient-to-r from-amber-50/5 to-teal-100/5 backdrop-blur-xl rounded-3xl border-amber-100/20">
             {videoCategories.map((cat, idx) => (
-              <button
+              <motion.button
                 key={idx}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => setSelectedVideoCategory(cat)}
-                className={`px-4 py-2 rounded-full font-medium transition-all
-                  ${selectedVideoCategory === cat
-                    ? `${categoryColors[cat] || "bg-purple-600"} text-white shadow-lg`
-                    : "bg-gray-700 text-gray-300 hover:bg-gray-600"
-                  }`}
+                className={`px-6 py-3 rounded-full font-bold transition-all duration-300 ${
+                  selectedVideoCategory === cat
+                    ? "bg-gradient-to-r from-amber-400 to-yellow-500 text-teal-900 shadow-xl border-2 border-amber-300"
+                    : "bg-gradient-to-r from-teal-800/50 to-teal-700/50  text-amber-50 hover:from-teal-700/60 hover:to-teal-600/60 border border-amber-200/20"
+                }`}
               >
                 {cat}
-              </button>
+              </motion.button>
             ))}
           </div>
-        </div>
+        </motion.div>
 
-        {/* Video Grid */}
-        <motion.div layout className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div 
+          layout 
+          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
           <AnimatePresence>
             {filteredMedia.length > 0 ? (
               filteredMedia.map((vid) => (
                 <VideoCard key={vid.id} video={vid} onClick={() => setSelectedVideo(vid)} />
               ))
             ) : (
-              <p className="text-gray-500 col-span-full text-center py-10">No videos found with these filters.</p>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="py-16 text-center col-span-full"
+              >
+                <div className="p-8 border bg-gradient-to-r from-amber-50/10 to-teal-100/10 rounded-3xl border-amber-100/20">
+                  <p className="text-lg text-amber-50">No videos found with the selected filters.</p>
+                  <p className="mt-2 text-sm text-amber-50">Try adjusting your category selection.</p>
+                </div>
+              </motion.div>
             )}
           </AnimatePresence>
         </motion.div>
       </div>
 
-      {/* Video Modal */}
       <AnimatePresence>
         {selectedVideo && (
           <motion.div
@@ -95,23 +109,39 @@ const Multimedia = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto bg-gradient-to-br from-teal-950/95 to-emerald-950/95 backdrop-blur-md"
             onClick={handleCloseModal}
           >
             <motion.div
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              className="bg-white/10 text-white rounded-3xl shadow-2xl p-6 md:p-8 max-w-3xl w-full relative backdrop-blur-lg border border-white/10 my-8"
+              initial={{ scale: 0.9, y: 20, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
+              exit={{ scale: 0.9, y: 20, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="relative w-full max-w-4xl p-8 my-8 border shadow-2xl bg-gradient-to-br from-amber-50/10 to-teal-100/5 backdrop-blur-xl rounded-3xl border-amber-100/20"
               onClick={e => e.stopPropagation()}
             >
               <button
                 onClick={handleCloseModal}
-                className="absolute top-4 right-4 text-gray-300 hover:text-white transition-colors p-2 rounded-full"
+                className="absolute p-3 transition-all duration-300 rounded-full top-6 right-6 text-amber-50 hover:text-amber-100 hover:bg-amber-100/10 group"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                <motion.svg 
+                  whileHover={{ rotate: 90 }}
+                  transition={{ duration: 0.2 }}
+                  xmlns="http://www.w3.org/2000/svg" 
+                  width="24" 
+                  height="24" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                >
+                  <path d="M18 6L6 18M6 6l12 12"/>
+                </motion.svg>
               </button>
-              <div className="w-full aspect-video rounded-2xl overflow-hidden mb-6">
+              
+              <div className="w-full mb-8 overflow-hidden border shadow-2xl aspect-video rounded-2xl border-amber-100/20">
                 <iframe
                   src={`${selectedVideo.link}?autoplay=1`}
                   title={selectedVideo.title}
@@ -120,31 +150,46 @@ const Multimedia = () => {
                   allowFullScreen
                 ></iframe>
               </div>
-              <h2 className="text-3xl font-bold mb-2 text-purple-200">{selectedVideo.title}</h2>
-              <p className="text-gray-300 mb-4">{selectedVideo.description}</p>
-              {selectedVideo.transcript && (
+              
+              <div className="space-y-6">
                 <div>
-                  <button
-                    onClick={() => setShowTranscript(!showTranscript)}
-                    className="text-purple-400 text-sm font-semibold hover:underline"
-                  >
-                    {showTranscript ? "Hide Transcript" : "Show Transcript"}
-                  </button>
-                  <AnimatePresence>
-                    {showTranscript && (
-                      <motion.p
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="mt-4 text-sm text-gray-300 bg-white/5 p-4 rounded-xl leading-relaxed overflow-hidden"
-                      >
-                        {selectedVideo.transcript}
-                      </motion.p>
-                    )}
-                  </AnimatePresence>
+                  <h2 className="mb-3 text-3xl font-bold text-amber-50 md:text-4xl bg-clip-text bg-gradient-to-r from-amber-200 to-yellow-200">
+                    {selectedVideo.title}
+                  </h2>
+                  <p className="text-lg leading-relaxed text-amber-50">{selectedVideo.description}</p>
                 </div>
-              )}
+                
+                {selectedVideo.transcript && (
+                  <div className="space-y-4">
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => setShowTranscript(!showTranscript)}
+                      className="px-6 py-3 font-bold transition-all duration-300 border rounded-full bg-gradient-to-r from-amber-500/20 to-yellow-500/20 text-amber-50 hover:from-amber-500/30 hover:to-yellow-500/30 border-amber-300/30"
+                    >
+                      {showTranscript ? "Hide Transcript" : "Show Transcript"}
+                    </motion.button>
+                    
+                    <AnimatePresence>
+                      {showTranscript && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.4, ease: "easeInOut" }}
+                          className="overflow-hidden"
+                        >
+                          <div className="p-6 border bg-gradient-to-r from-teal-900/20 to-emerald-900/20 backdrop-blur-sm rounded-2xl border-amber-100/10">
+                            <p className="text-sm leading-relaxed text-amber-50">
+                              {selectedVideo.transcript}
+                            </p>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                )}
+              </div>
             </motion.div>
           </motion.div>
         )}
