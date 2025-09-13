@@ -14,7 +14,7 @@ const Breadcrumbs = () => {
         {pathnames.map((value, index) => {
           const isLast = index === pathnames.length - 1;
           return (
-        <motion.li className="flex items-center space-x-2">
+        <motion.li className="flex items-center space-x-2" key={value}>
           <ChevronRight />
           <span className="font-semibold capitalize text-cream">{value.replace(/-/g, ' ')}</span>
         </motion.li>

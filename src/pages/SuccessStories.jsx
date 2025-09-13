@@ -82,7 +82,6 @@ const SuccessStories = () => {
                   alt={featuredStory.name}
                   className="object-cover w-56 h-56 transition-transform duration-300 border-4 rounded-full shadow-2xl border-gold ring-4 ring-gold/20 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 rounded-full bg-gradient-to-t from-gold/20 to-transparent"></div>
               </div>
               <div className="flex-1 text-center lg:text-left">
                 <span className="inline-block px-6 py-2 mb-4 text-sm font-bold text-teal-900 rounded-full shadow-lg bg-gradient-to-r from-yellow-100 via-amber-200">

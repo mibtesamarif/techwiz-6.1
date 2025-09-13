@@ -1,12 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { getBookmarks } from "../utils/storage";
+import { path } from "framer-motion/client";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [username, setUsername] = useState("");
   const [bookmarkCount, setBookmarkCount] = useState(0);
-  const [activeLink, setActiveLink] = useState("home");
+  const [activeLink, setActiveLink] = useState("");
+  const location = useLocation();
+  const pathnames = location.pathname.split("/").filter((x) => x);
+
+  useEffect(() => {
+    if (pathnames.length !== 0 && pathnames[0] !== "about" && pathnames[0] !== "contact" && pathnames[0] !== "feedback") {
+      setActiveLink(pathnames[0]);
+      setIsOpen(false);
+    }
+    else if (pathnames.length !== 0 && pathnames[0] === "about" || pathnames[0] === "contact" || pathnames[0] === "feedback") {
+      setActiveLink("");
+      setIsOpen(false);
+    } 
+     else {
+      setActiveLink("home");
+    }
+  }, [location]);
 
   useEffect(() => {
     const updateBookmarks = () => {
@@ -39,22 +56,16 @@ const Navbar = () => {
     window.location.reload(); 
   };
 
-  const handleLinkClick = (linkId) => {
-    setActiveLink(linkId);
-    setIsOpen(false);
-    console.log(`Navigating to: ${linkId}`);
-  };
-
   const linkClasses = "block px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ease-in-out cursor-pointer select-none";
-  const activeClasses = "text-teal-900 bg-amber-200 shadow-md transform scale-105";
-  const inactiveClasses = "text-amber-100 hover:bg-amber-50 hover:bg-opacity-10 hover:text-amber-50 hover:scale-105 transform";
+  const activeClasses = "text-amber-100 underline underline-offset-4 decoration-2 decoration-amber-500";
+  const inactiveClasses = "text-amber-100 hover:underline hover:underline-offset-4 hover:decoration-amber-50 hover:decoration-2";
 
   const desktopMenuItems = [
     { id: "home", label: "Home", to: "/" },
-    { id: "career-bank", label: "Career Bank", to: "/career-bank" },
+    { id: "careerbank", label: "Career Bank", to: "/careerbank" },
     { id: "quiz", label: "Quiz", to: "/quiz" },
     { id: "multimedia", label: "Multimedia", to: "/multimedia" },
-    { id: "success-stories", label: "Success Stories", to: "/success-stories" },
+    { id: "successstories", label: "Success Stories", to: "/successstories" },
     { id: "resources", label: "Resources", to: "/resources" },
     { id: "admission&coaching", label: "Admission & Coaching", to: "/admission&coaching" },
     { id: "bookmarks", label: "Bookmarks", hasCount: true, to: "/bookmarks" }
@@ -71,7 +82,6 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 border-b shadow-xl bg-gradient-to-r from-teal-900 via-teal-800 to-teal-900 text-amber-50 backdrop-blur-sm border-amber-300 border-opacity-20">
       <div className="container flex items-center justify-between px-4 py-3 mx-auto md:px-6 md:py-4">
         <div 
-          onClick={() => handleLinkClick('home')}
           className="flex items-center gap-2 text-lg font-bold transition-all duration-300 cursor-pointer group hover:scale-105 md:gap-3 md:text-xl"
         >
           <div className="p-1.5 md:p-2 transition-all duration-300 shadow-lg bg-amber-400 rounded-xl group-hover:shadow-amber-400/50">
@@ -135,7 +145,6 @@ const Navbar = () => {
               <Link
                 to={item.to}
                 key={item.id}
-                onClick={() => handleLinkClick(item.id)}
                 className={`${linkClasses} ${activeLink === item.id ? activeClasses : inactiveClasses} ${item.hasCount ? 'flex items-center gap-2' : ''}`}
               >
                 <span>{item.label}</span>
@@ -161,7 +170,6 @@ const Navbar = () => {
             <Link
               to={item.to}
               key={item.id}
-              onClick={() => handleLinkClick(item.id)}
               className={`${linkClasses} ${activeLink === item.id ? activeClasses : inactiveClasses} ${
                 item.hasCount ? 'flex items-center justify-between' : ''
               }`}

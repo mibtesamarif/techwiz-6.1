@@ -18,7 +18,7 @@ const QuizQuestion = ({ question, onAnswer }) => {
           <motion.button
             key={idx}
             onClick={() => onAnswer(opt.value)}
-            className="block w-full px-6 py-4 text-lg text-left text-gray-200 transition-all duration-300 transform border-2 rounded-xl bg-white/10 border-white/20 hover:bg-purple-600 hover:text-white hover:border-purple-600 hover:scale-105"
+            className="block w-full px-6 py-4 text-lg text-left text-gray-200 transition-all duration-300 transform border-2 rounded-xl bg-white/10 border-white/20 hover:bg-teal-700 hover:text-white hover:border-teal-950 hover:scale-105"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

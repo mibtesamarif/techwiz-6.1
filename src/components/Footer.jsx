@@ -6,7 +6,7 @@ const Footer = () => {
 
   const quickLinks = [
     { name: "About Us", to: "/about" },
-    { name: "Career Bank", to: "/career-bank" },
+    { name: "Career Bank", to: "/careerbank" },
     { name: "Quiz", to: "/quiz" },
     { name: "Resources", to: "/resources" },
     { name: "Admission & Coaching", to: "/admission&coaching" }
@@ -122,20 +122,6 @@ const Footer = () => {
                 info@nextstep.com
               </p>
             </div>
-            
-            {/* <div className="mt-4">
-              <p className="mb-2 text-xs text-amber-200">Subscribe for career tips & updates</p>
-              <div className="flex">
-                <input
-                  type="email"
-                  placeholder="Your email"
-                  className="flex-1 px-3 py-2 text-sm border rounded-l-lg bg-amber-50 bg-opacity-10 text-amber-100 placeholder-amber-300 border-amber-300 border-opacity-30 focus:outline-none focus:ring-1 focus:ring-amber-400 focus:bg-opacity-20"
-                />
-                <button className="px-4 py-2 text-sm font-semibold text-teal-900 transition-all duration-300 transform rounded-r-lg bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 hover:scale-105">
-                  Join
-                </button>
-              </div>
-            </div> */}
           </div>
         </div>
       </div>

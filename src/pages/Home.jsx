@@ -282,7 +282,7 @@ const Home = () => {
       ></div>
 
       <div className="relative z-20 grid items-center justify-center w-full min-h-screen grid-cols-1 gap-12 mx-auto max-w-7xl lg:grid-cols-2 lg:gap-24">
-        <div className="flex flex-col items-start py-12 text-left lg:py-0">
+        <div className="flex flex-col items-start px-10 py-12 text-left lg:py-0">
           <motion.h1
             className="mb-4 text-4xl font-extrabold leading-tight tracking-tight md:text-6xl drop-shadow-lg"
             style={{ color: '#FFF8E1' }}
