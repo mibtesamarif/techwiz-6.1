@@ -10,13 +10,14 @@ const Navbar = () => {
   const [activeLink, setActiveLink] = useState("");
   const location = useLocation();
   const pathnames = location.pathname.split("/").filter((x) => x);
+  console.log(pathnames);
 
   useEffect(() => {
-    if (pathnames.length !== 0 && pathnames[0] !== "about" && pathnames[0] !== "contact" && pathnames[0] !== "feedback") {
+    if ( pathnames[1] !== "about" && pathnames[1] !== "contact" && pathnames[1] !== "feedback") {
       setActiveLink(pathnames[0]);
       setIsOpen(false);
     }
-    else if (pathnames.length !== 0 && pathnames[0] === "about" || pathnames[0] === "contact" || pathnames[0] === "feedback") {
+    else if ( pathnames[1] === "about" || pathnames[1] === "contact" || pathnames[1] === "feedback") {
       setActiveLink("");
       setIsOpen(false);
     } 
@@ -159,7 +160,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      <div 
+      {/* <div 
         className={`lg:hidden overflow-hidden transition-all duration-500 ease-in-out ${
           isOpen ? 'max-h-full opacity-100' : 'max-h-0 opacity-0'
         }`} 
@@ -169,6 +170,7 @@ const Navbar = () => {
           {mobileMenuItems.map((item) => (
             <Link
               to={item.to}
+              onClick={()=>console.log(item.to) }
               key={item.id}
               className={`${linkClasses} ${activeLink === item.id ? activeClasses : inactiveClasses} ${
                 item.hasCount ? 'flex items-center justify-between' : ''
@@ -191,7 +193,51 @@ const Navbar = () => {
           style={{ zIndex: 45 }}
           onClick={() => setIsOpen(false)}
         />
-      )}
+      )} */}
+
+      <div
+  id="mobile-menu"
+  className={`lg:hidden fixed left-0 right-0 top-16 transform transition-transform duration-200 ease-in-out
+    ${isOpen ? 'translate-y-0 opacity-100 pointer-events-auto' : '-translate-y-2 opacity-0 pointer-events-none'}
+    z-50`}
+>
+  <div className="px-4 py-4 space-y-2 border-t shadow-lg md:px-6 bg-gradient-to-b from-teal-800 to-teal-900 border-amber-300 border-opacity-20">
+    {mobileMenuItems.map((item) => (
+
+      <button
+        key={item.id}
+        type="button"
+        onPointerDown={(e) => {
+          
+          e.preventDefault();
+          navigate(item.to);       
+        }}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            navigate(item.to);
+          }
+        }}
+        className={`${linkClasses} ${activeLink === item.id ? activeClasses : inactiveClasses} ${item.hasCount ? 'flex items-center justify-between' : ''}`}
+        aria-label={item.label}
+      >
+        <span>{item.label}</span>
+        {item.hasCount && bookmarkCount > 0 && (
+          <span className="bg-gradient-to-r from-pink-400 to-pink-500 text-white text-xs font-bold rounded-full px-2 py-1 min-w-[20px] text-center shadow-lg">
+            {bookmarkCount}
+          </span>
+        )}
+      </button>
+    ))}
+  </div>
+</div>
+
+{isOpen && (
+  <div
+    className="fixed inset-0 z-40 bg-black bg-opacity-30 lg:hidden"
+    onPointerDown={() => setIsOpen(false)}
+    aria-hidden="true"
+  />
+)}
     </nav>
   );
 };
