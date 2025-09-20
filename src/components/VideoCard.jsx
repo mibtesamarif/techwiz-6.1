@@ -22,7 +22,10 @@ const VideoCard = ({ video, onClick }) => {
     >
       <div className="relative w-full mb-5 overflow-hidden transition-all duration-500 aspect-video rounded-2xl group-hover:shadow-2xl">
         <img
-          src={`https://img.youtube.com/vi/${video.link.split('/').pop()}/maxresdefault.jpg`}
+          // src={`https://img.youtube.com/vi/${video.link.split('/').pop()}/maxresdefault.jpg`}
+            // src={`https://img.youtube.com/vi/${video.link}/maxresdefault.jpg`}
+            src={`https://img.youtube.com/vi/${video.link.split('/').pop().split('?')[0]}/maxresdefault.jpg`}
+
           alt={video.title}
           className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
         />

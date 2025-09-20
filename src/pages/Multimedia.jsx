@@ -11,7 +11,7 @@ const Multimedia = () => {
   const [selectedVideoCategory, setSelectedVideoCategory] = useState("All");
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [showTranscript, setShowTranscript] = useState(false);
-
+  
   useEffect(() => {
     setSelectedUserCategory("All");
   }, []);
@@ -25,6 +25,19 @@ const Multimedia = () => {
     setSelectedVideo(null);
     setShowTranscript(false);
   };
+
+  // Function to extract video ID from any YouTube URL format
+const getYouTubeVideoId = (url) => {
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+  const match = url.match(regExp);
+  return match && match[2].length === 11 ? match[2] : null;
+};
+console.log()
+// Function to create proper embed URL
+const createYouTubeEmbedUrl = (originalUrl) => {
+  const videoId = getYouTubeVideoId(originalUrl);
+  return videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1` : originalUrl;
+};
 
   return (
     <div className="flex flex-col items-center min-h-screen p-4 font-sans bg-gradient-to-br from-teal-950 via-teal-900 to-emerald-950 text-amber-50 sm:p-8">
@@ -143,7 +156,8 @@ const Multimedia = () => {
               
               <div className="w-full mb-8 overflow-hidden border shadow-2xl aspect-video rounded-2xl border-amber-100/20">
                 <iframe
-                  src={`${selectedVideo.link}?autoplay=1`}
+                  // src={`${selectedVideo.link}?autoplay=1`}
+                   src={createYouTubeEmbedUrl(selectedVideo.link)}
                   title={selectedVideo.title}
                   className="w-full h-full"
                   allow="autoplay; encrypted-media"
